@@ -1,11 +1,11 @@
-###解析器的源码使用和剖析序列化组件的使用
-####序列化接口设计
+### 解析器的源码使用和剖析序列化组件的使用
+#### 序列化接口设计
     1.1 get
         post11
         put
         delete
         
-####使用方法
+#### 使用方法
     #view.py（get请求）
         1.1 开始使用序列化类
         1.2 导入模块 （from rest_framwork.serializer import Serializer）
@@ -98,4 +98,3 @@
         - Delete 方法
         
   
-####源码剖析
