@@ -1,4 +1,4 @@
-###django drf 源码解读 和 CBV
+### django drf 源码解读 和 CBV
     DRF 请求流程和源码剖析(其中flask中的flask-rest也是类似)
        1.本质上drf 就是django的一个app
        2.drf 封装了很多的功能其中包括
@@ -8,7 +8,7 @@
            2.4 权限组件
            2.5 视图组件
 
-###View 解读（cbv 方式dispach方法位于base.py）
+### View 解读（cbv 方式dispach方法位于base.py）
       
     from django.conf.urls import url
     from . import views
@@ -16,7 +16,7 @@
            url(r"books/$",views.CursorView.as_viwes()),
       ]
       
-####url 绑定视图      
+#### url 绑定视图      
     def as_view(cls, **initkwargs):
         """
         cls 为CursorView 视图类
@@ -62,7 +62,7 @@
         如果不存在继续查找父类，其中cbv方式中的dispach方法位于父类的View中
         
         
-####dispach 方法
+#### dispach 方法
     
       def dispatch(self, request, *args, **kwargs):
           """
@@ -96,7 +96,7 @@
         def post(self,*args,**kwargs):
             pass
          ....
-###APIview 的请求流程
+### APIview 的请求流程
         1、 启动django：python manage.py runserver ip:port
         2、加载settings：
             2.1 加载models.py
