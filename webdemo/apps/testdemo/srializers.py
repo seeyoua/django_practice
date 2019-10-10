@@ -30,8 +30,23 @@ class BookSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.publish_id = validated_data['publish']
         instance.save()
-
-
         return instance
+
+
+class BookMixinSerializer(serializers.ModelSerializer):
+    authors = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Book
+        fields = "__all__"
+
+    def get_authors(self, obj):
+        qurey_set = obj.authors.all()
+        return [{"name":obj.name} for obj in qurey_set]
+
+
+
+
+
 
 

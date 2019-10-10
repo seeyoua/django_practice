@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from django.views import View
-from .srializers import BookSerializer
+from rest_framework import mixins
+from .srializers import BookSerializer,BookMixinSerializer
 from .models import Book,Author
+
 
 
 class BookView(APIView):
@@ -47,6 +49,39 @@ class BookFilterView(APIView):
     def delete(self, request, nid):
         Book.objects.get(nid=nid).delete()
         return Response({"messages":"ok"})
+
+"""
+    drf视图组件mixin 
+"""
+
+
+class BookListView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookMixinSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class BookFilterMixinView(mixins.RetrieveModelMixin, mixins.DestroyModelMixin,
+                          mixins.UpdateModelMixin,GenericAPIView):
+
+    queryset = Book.objects.all()
+    serializer_class = BookMixinSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
 
 
 
